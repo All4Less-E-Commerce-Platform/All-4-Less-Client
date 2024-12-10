@@ -1,0 +1,20 @@
+{
+  "[typescriptreact]": {
+    "editor.formatOnSave": false
+  },
+  "[typescript]": {
+    "editor.formatOnSave": false
+  },
+  "[javascript]": {
+    "editor.formatOnSave": false
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "editor.formatOnSave": true,
+  "eslint.workingDirectories": ["Dashboard"],
+  "cSpell.words": [
+    "cloudinary",
+    "Homeoptions"
+  ]
+}
