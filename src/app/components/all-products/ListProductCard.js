@@ -8,9 +8,9 @@ import {
   Typography,
   Button,
 } from "@mui/material";
-import { theme } from "@/themes/theme"; // Assuming you have a custom theme
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
+import { theme } from "@/themes/theme"; // Assuming you have a custom theme
 
 export function ListProductCard({ product }) {
   const [hover, setHover] = useState(false);
@@ -27,6 +27,7 @@ export function ListProductCard({ product }) {
         "&:hover": { boxShadow: "0 6px 12px rgba(0, 0, 0, 0.15)" },
         mb: 2, // Space between cards
         p: 2,
+        backgroundColor: theme.palette.primary.wBkg,
       }}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
@@ -37,7 +38,7 @@ export function ListProductCard({ product }) {
         // height="150"
         // width="50"
         image={product.image}
-        alt={product.title}
+        alt={product.subject}
         sx={{
           transition: "transform 0.3s ease",
           transform: hover ? "scale(1.1)" : "scale(1)",
@@ -62,7 +63,7 @@ export function ListProductCard({ product }) {
           }}
         >
           <Typography variant="h6" component="div" sx={{ fontWeight: "bold" }}>
-            {product.title}
+            {product.subject}
           </Typography>
           <Typography
             sx={{
@@ -74,7 +75,13 @@ export function ListProductCard({ product }) {
             }}
             variant="body1"
           >
-            ${product.price}
+            {(product.price &&
+              product.price
+                .replace("USD", "$")
+                .trim()
+                .replace("US", "")
+                .trim()) ||
+              `${product.minPrice.replace("USD", "$").trim().replace("US", "").trim()}`}
             <Button
               color="text.secondary"
               style={{

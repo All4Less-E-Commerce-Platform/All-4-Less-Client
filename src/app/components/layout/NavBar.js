@@ -1,13 +1,13 @@
-import { theme } from "@/themes/theme";
 import { Box } from "@mui/material";
 import Link from "next/link";
 import React from "react";
+import { theme } from "@/themes/theme";
 
 export function NavBar({ currentPath }) {
   return (
     <Box
       sx={{
-        width: "60%",
+        width: "65%",
         height: "100%",
         display: "flex",
         alignItems: "center",
@@ -49,11 +49,11 @@ export function NavBar({ currentPath }) {
         style={{
           padding: "0.6em",
           backgroundColor:
-            currentPath === "/hoodies" && theme.palette.primary.orange,
+            currentPath === "/watches" && theme.palette.primary.orange,
         }}
-        href="/hoodies"
+        href="/watches"
       >
-        HOODIES
+        WATCHES
       </Link>
       <Link
         style={{
@@ -69,7 +69,8 @@ export function NavBar({ currentPath }) {
         style={{
           padding: "0.6em",
           backgroundColor:
-            currentPath === "/consumer-electronics" && theme.palette.primary.orange,
+            currentPath === "/consumer-electronics" &&
+            theme.palette.primary.orange,
         }}
         href="/consumer-electronics"
       >
@@ -79,11 +80,11 @@ export function NavBar({ currentPath }) {
         style={{
           padding: "0.6em",
           backgroundColor:
-            currentPath === "/sale" && theme.palette.primary.orange,
+            currentPath === "/machines" && theme.palette.primary.orange,
         }}
-        href="/sale"
+        href="/machines"
       >
-        SALE!
+        MACHINES!
       </Link>
     </Box>
   );

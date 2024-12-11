@@ -1,14 +1,16 @@
-import Products from '@/models/Products';
-import Rank from "@/models/Rank";
-import axios from 'axios';
+import axios from "axios";
 import { NextResponse } from "next/server";
-import { Op } from 'sequelize';
+import { Op } from "sequelize";
+import Rank from "@/models/Rank";
+import Products from "@/models/Products";
 
 export async function GET() {
   try {
-    const products = await Products.findAll({where:  { category: "Consumer Electronics" }, logging: false});
+    const products = await Products.findAll({
+      where: { category: "Consumer Electronics" },
+      logging: false,
+    });
 
- 
     return NextResponse.json(
       { data: products },
       {
@@ -19,7 +21,7 @@ export async function GET() {
     );
   } catch (error) {
     console.log(error);
-    
+
     console.error("API Error:", error);
     return NextResponse.json(
       { message: "Internal Server Error" },

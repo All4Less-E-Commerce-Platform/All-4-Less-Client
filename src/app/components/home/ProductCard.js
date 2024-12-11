@@ -8,9 +8,9 @@ import {
   Typography,
   Button,
 } from "@mui/material";
-import { theme } from "@/themes/theme"; // Assuming you have a custom theme
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
+import { theme } from "@/themes/theme";
 
 function ProductCard({ product }) {
   const [hover, setHover] = useState(false);
@@ -54,7 +54,7 @@ function ProductCard({ product }) {
             cursor: "pointer",
             textDecoration: "none",
             transition: "color 0.2s ease",
-            fontSize: '0.8em',
+            fontSize: "0.8em",
             "&:hover": {
               color: theme.palette.primary.orange,
             },
@@ -68,7 +68,7 @@ function ProductCard({ product }) {
         <Typography
           sx={{
             display: "flex",
-            flexDirection: 'column',
+            flexDirection: "column",
             alignItems: "flex-start",
             justifyContent: "space-between",
             cursor: "pointer",
@@ -76,7 +76,13 @@ function ProductCard({ product }) {
           variant="body1"
           color="text.secondary"
         >
-          {product.price}
+          {(product.price &&
+            product.price
+              .replace("USD", "$")
+              .trim()
+              .replace("US", "")
+              .trim()) ||
+            `${product.minPrice.replace("USD", "$").trim().replace("US", "").trim()}`}
           <Button
             color="text.secondary"
             style={{

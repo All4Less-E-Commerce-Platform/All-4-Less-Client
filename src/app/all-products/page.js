@@ -1,11 +1,10 @@
-/* eslint-disable import/no-unresolved */
 /* eslint-disable import/extensions */
 
 "use client";
 
+import React, { useEffect, useState, useRef } from "react";
+import { Box, Typography } from "@mui/material";
 import { theme } from "@/themes/theme";
-import { Box, Pagination, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
 import {
   Breadcrumb,
   GridProductsWrapper,
@@ -13,29 +12,81 @@ import {
   ListProductsWrapper,
   TypeError,
   SearchPar,
+  // eslint-disable-next-line import/no-unresolved
 } from "@/app/components/all-products";
 
 import { useData } from "../context/DataContext";
 import { ApplyFilters } from "../class/filters";
+import { LoadingPage } from "../components/Loading/LoadingPage";
 
 export default function AllProducts() {
-  const [products, setProducts] = useState([]);
+  const [allProducts, setAllProducts] = useState([]); // All products fetched
+  const [visibleProducts, setVisibleProducts] = useState([]); // Products currently visible
   const [count, setCount] = useState(0);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [loadingMore, setLoadingMore] = useState(false); // Tracks loading additional products
+  const [loading, setLoading] = useState(false);
 
-  const { productData } = useData();
+  const { setProductsAll, getProductsAll } = useData();
 
   const [view, setView] = useState("grid");
-  const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 9;
+  const productsPerPage = 30; // Number of products to load at a time
+  const loaderRef = useRef(null); // Ref for the loader element at the bottom
 
-  // Slice products based on the current page
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = productData.slice(
-    indexOfFirstProduct,
-    indexOfLastProduct,
-  );
+  useEffect(() => {
+    const fetchProductsAll = async () => {
+      setLoading(true);
+      const ProductsAllData = await getProductsAll();
+      setProductsAll(ProductsAllData);
+      setAllProducts(ProductsAllData);
+      setVisibleProducts(ProductsAllData.slice(0, productsPerPage)); // Load initial 30 products
+      setCount(ProductsAllData.length);
+      setLoading(false);
+    };
+
+    fetchProductsAll();
+  }, [getProductsAll]);
+
+  // Add more products when the user scrolls to the bottom
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry.isIntersecting && !loadingMore) {
+          // eslint-disable-next-line no-use-before-define
+          loadMoreProducts();
+        }
+      },
+      {
+        root: null, // Default viewport
+        rootMargin: "0px",
+        threshold: 1.0, // Fully visible
+      },
+    );
+
+    if (loaderRef.current) {
+      observer.observe(loaderRef.current);
+    }
+
+    return () => {
+      if (loaderRef.current) observer.unobserve(loaderRef.current);
+    };
+  }, [loadingMore, visibleProducts]);
+
+  const loadMoreProducts = () => {
+    if (visibleProducts.length < allProducts.length) {
+      setLoadingMore(true);
+      const start = visibleProducts.length;
+      const end = start + productsPerPage;
+      setTimeout(() => {
+        setVisibleProducts((prev) => [
+          ...prev,
+          ...allProducts.slice(start, end),
+        ]);
+        setLoadingMore(false);
+      }, 500); // Simulate API call delay
+    }
+  };
 
   const handleView = (val) => {
     if (val !== view) {
@@ -43,17 +94,8 @@ export default function AllProducts() {
     }
   };
 
-  const handlePageChange = (event, value) => {
-    setCurrentPage(value);
-  };
-
-  useEffect(() => {
-    setProducts(productData);
-    setCount(currentProducts.length);
-  }, [productData, currentProducts]);
-
   const handleFilters = ({ searchTerm, priceRange, selectedSizes }) => {
-    const filterObj = new ApplyFilters(currentProducts);
+    const filterObj = new ApplyFilters(visibleProducts);
     const filtered = filterObj.applyAllFilters({
       searchTerm,
       priceRange,
@@ -63,6 +105,17 @@ export default function AllProducts() {
     setFilteredProducts(filtered);
     setCount(filteredProducts.length);
   };
+
+  useEffect(() => {
+    if (allProducts.length) {
+      console.log(allProducts[0]);
+    }
+  });
+
+  if (loading) {
+    return <LoadingPage />;
+  }
+
   return (
     <>
       <Box
@@ -87,7 +140,7 @@ export default function AllProducts() {
             textTransform: "capitalize",
           }}
         >
-          ALL PRODUCTS
+          Apparel & Accessories
         </Typography>
       </Box>
       <Box
@@ -119,28 +172,22 @@ export default function AllProducts() {
           <SortBySelectBox
             viewType={view}
             handleView={handleView}
-            indexOfLastProduct={indexOfLastProduct}
-            indexOfFirstProduct={indexOfFirstProduct}
-            count={products.length}
+            count={visibleProducts.length}
           />
-          {view === "grid" && count ? (
-            <GridProductsWrapper products={currentProducts} />
-          ) : view === "list" && currentProducts.length ? (
-            <ListProductsWrapper products={currentProducts} />
-          ) : (
-            <TypeError message="No products found" />
+          {view === "grid" && visibleProducts.length > 0 && (
+            <GridProductsWrapper products={visibleProducts} />
           )}
 
-          <Pagination
-            count={Math.ceil(products.length / productsPerPage)}
-            page={currentPage}
-            onChange={handlePageChange}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              mt: 4,
-            }}
-          />
+          {view === "list" && visibleProducts.length > 0 && (
+            <ListProductsWrapper products={visibleProducts} />
+          )}
+
+          {!visibleProducts.length && <TypeError message="No products found" />}
+
+          {/* Loader element for lazy loading */}
+          <Box ref={loaderRef} sx={{ textAlign: "center", mt: 4 }}>
+            {loadingMore && <Typography>Loading more products...</Typography>}
+          </Box>
         </Box>
       </Box>
     </>

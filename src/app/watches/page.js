@@ -1,7 +1,9 @@
+/* eslint-disable import/extensions */
+
 "use client";
 
 import React, { useEffect, useState, useRef } from "react";
-import { Box, Pagination, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { theme } from "@/themes/theme";
 import {
   Breadcrumb,
@@ -10,6 +12,7 @@ import {
   ListProductsWrapper,
   TypeError,
   SearchPar,
+  // eslint-disable-next-line import/no-unresolved
 } from "@/app/components/all-products";
 
 import { useData } from "../context/DataContext";
@@ -24,26 +27,25 @@ export default function AllProducts() {
   const [loadingMore, setLoadingMore] = useState(false); // Tracks loading additional products
   const [loading, setLoading] = useState(false);
 
-  const { setFootwear, getFootwear } = useData();
+  const { setWatches, getWatches } = useData();
 
   const [view, setView] = useState("grid");
-  const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 30; // Number of products to load at a time
   const loaderRef = useRef(null); // Ref for the loader element at the bottom
 
   useEffect(() => {
-    const fetchFootwear = async () => {
+    const fetchWatches = async () => {
       setLoading(true);
-      const FootwearData = await getFootwear();
-      setFootwear(FootwearData);
-      setAllProducts(FootwearData);
-      setVisibleProducts(FootwearData.slice(0, productsPerPage)); // Load initial 30 products
-      setCount(FootwearData.length);
+      const WatchesData = await getWatches();
+      setWatches(WatchesData);
+      setAllProducts(WatchesData);
+      setVisibleProducts(WatchesData.slice(0, productsPerPage)); // Load initial 30 products
+      setCount(WatchesData.length);
       setLoading(false);
     };
 
-    fetchFootwear();
-  }, [getFootwear]);
+    fetchWatches();
+  }, [getWatches]);
 
   // Add more products when the user scrolls to the bottom
   useEffect(() => {
@@ -51,6 +53,7 @@ export default function AllProducts() {
       (entries) => {
         const [entry] = entries;
         if (entry.isIntersecting && !loadingMore) {
+          // eslint-disable-next-line no-use-before-define
           loadMoreProducts();
         }
       },

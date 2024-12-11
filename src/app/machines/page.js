@@ -24,7 +24,7 @@ export default function AllProducts() {
   const [loadingMore, setLoadingMore] = useState(false); // Tracks loading additional products
   const [loading, setLoading] = useState(false);
 
-  const { setFootwear, getFootwear } = useData();
+  const { setMachines, getMachines } = useData();
 
   const [view, setView] = useState("grid");
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,18 +32,18 @@ export default function AllProducts() {
   const loaderRef = useRef(null); // Ref for the loader element at the bottom
 
   useEffect(() => {
-    const fetchFootwear = async () => {
+    const fetchMachines = async () => {
       setLoading(true);
-      const FootwearData = await getFootwear();
-      setFootwear(FootwearData);
-      setAllProducts(FootwearData);
-      setVisibleProducts(FootwearData.slice(0, productsPerPage)); // Load initial 30 products
-      setCount(FootwearData.length);
+      const MachinesData = await getMachines();
+      setMachines(MachinesData);
+      setAllProducts(MachinesData);
+      setVisibleProducts(MachinesData.slice(0, productsPerPage)); // Load initial 30 products
+      setCount(MachinesData.length);
       setLoading(false);
     };
 
-    fetchFootwear();
-  }, [getFootwear]);
+    fetchMachines();
+  }, [getMachines]);
 
   // Add more products when the user scrolls to the bottom
   useEffect(() => {
