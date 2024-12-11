@@ -1,5 +1,5 @@
-import { FlexRowBox } from "@/styles/components.styled";
 import React from "react";
+import { FlexRowBox } from "@/styles/components.styled";
 import ProductCard from "../home/ProductCard";
 
 export function GridProductsWrapper({ products }) {

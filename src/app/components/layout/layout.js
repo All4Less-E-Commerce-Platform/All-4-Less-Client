@@ -5,12 +5,10 @@ import { Header } from "./Header";
 import { SecHeader } from "./SecHeader";
 import { Footer } from "./Footer";
 import { LoadingPage } from "../Loading/LoadingPage";
-import { useData } from '@/app/context/DataContext';
 
 export function RootLayouts({ children }) {
   const [showScrolledNavbar, setShowScrolledNavbar] = useState(false);
   const { status } = useSession();
-
 
   useEffect(() => {
     const handleScroll = () => {

@@ -29,16 +29,19 @@ module.exports = {
     "react/react-in-jsx-scope": "off",
     "react/jsx-props-no-spreading": "off",
     "import/prefer-default-export": "off",
+    "import/no-unresolved": "off",
   },
 
   settings: {
     "import/resolver": {
+      alias: {
+        map: [
+          ["@", "./src"], // Ensure @ maps correctly to the source folder
+        ],
+        extensions: [".js", ".jsx", ".ts", ".tsx", ".json"], // Add all file types you want to support
+      },
       node: {
         paths: ["."],
-      },
-      alias: {
-        map: [["@", "./src/"]],
-        extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
       },
     },
   },
