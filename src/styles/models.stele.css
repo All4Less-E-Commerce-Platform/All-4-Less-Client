@@ -1,0 +1,197 @@
+/* Overall container styling */
+.layout-overview {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+}
+
+/* Styling for price section */
+.module_price {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-price {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.id-mb-2 {
+  background-color: #ff4014;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.price-list {
+  margin-top: 15px;
+}
+
+.price-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.price span {
+  font-size: 14px;
+  color: #333;
+}
+
+.price span:first-child {
+  text-decoration: line-through;
+  color: #888;
+}
+
+/* Styling for SKU section */
+.module_sku {
+  background-color: #fff;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sku-layout {
+  display: flex;
+  flex-direction: column;
+}
+
+.sku-option {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.sku-info {
+  min-height: 100px;
+  background-color: #f0f0f0;
+  border-radius: 6px;
+}
+
+.sku-logistic {
+  margin-top: 15px;
+}
+
+.logistic-item h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* Action buttons styling */
+.module_actions .button-layout {
+  display: flex;
+  gap: 15px;
+  justify-content: space-between;
+}
+
+.button-item {
+  background-color: #ff4014;
+  color: white;
+  padding: 10px 20px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-item:hover {
+  background-color: #e23911;
+}
+
+/* Sample section styling */
+.module_sample {
+  background-color: #fff;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sample-layout {
+  display: flex;
+  flex-direction: column;
+}
+
+.sample-action {
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: #333;
+}
+
+.sample-floor {
+  margin-top: 20px;
+}
+
+.sample-item {
+  font-size: 14px;
+  color: #555;
+}
+
+.detail-simple {
+  background-color: #ff4014;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.detail-simple:hover {
+  background-color: #e23911;
+}
+
+/* Protection and benefits section */
+.module_ta_plus {
+  background-color: #fff;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ta-semi .ta-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.ta-header {
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  font-size: 18px;
+  color: #333;
+}
+
+.semi-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.semi-item {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.semi-footer {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 12px;
+  color: #777;
+}

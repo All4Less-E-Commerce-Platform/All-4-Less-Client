@@ -35,8 +35,6 @@ export function ListProductCard({ product }) {
       {/* Image */}
       <CardMedia
         component="img"
-        // height="150"
-        // width="50"
         image={product.image}
         alt={product.subject}
         sx={{
@@ -46,12 +44,14 @@ export function ListProductCard({ product }) {
           width: "40%",
           height: "100%",
           borderRadius: "5px",
+          cursor: "pointer",
+        }}
+        onClick={() => {
+          window.location.href = `/details/${product.productId}`;
         }}
       />
 
-      {/* Content Section */}
       <Box sx={{ flex: 1, p: 2 }}>
-        {/* Title and Price */}
         <CardContent
           sx={{
             display: "flex",
@@ -62,7 +62,20 @@ export function ListProductCard({ product }) {
             gap: 2,
           }}
         >
-          <Typography variant="h6" component="div" sx={{ fontWeight: "bold" }}>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{
+              fontWeight: "bold",
+              cursor: "pointer",
+              "&:hover": {
+                color: theme.palette.primary.orange,
+              },
+            }}
+            onClick={() => {
+              window.location.href = `/details/${product.productId}`;
+            }}
+          >
             {product.subject}
           </Typography>
           <Typography
@@ -81,7 +94,7 @@ export function ListProductCard({ product }) {
                 .trim()
                 .replace("US", "")
                 .trim()) ||
-              `${product.minPrice.replace("USD", "$").trim().replace("US", "").trim()}`}
+              `${product.maxPrice.replace("USD", "$").trim().replace("US", "").trim()}`}
             <Button
               color="text.secondary"
               style={{
