@@ -40,7 +40,7 @@ function ProductCard({ product }) {
           cursor: "pointer",
         }}
         onClick={() => {
-          window.location.href = `/product/${product.id}`;
+          window.location.href = `/details/${product.productId}`;
         }}
       />
 
@@ -60,7 +60,7 @@ function ProductCard({ product }) {
             },
           }}
           onClick={() => {
-            window.location.href = `/product/${product.id}`;
+            window.location.href = `/details/${product.productId}`;
           }}
         >
           {product.subject}
@@ -82,7 +82,7 @@ function ProductCard({ product }) {
               .trim()
               .replace("US", "")
               .trim()) ||
-            `${product.minPrice.replace("USD", "$").trim().replace("US", "").trim()}`}
+            `${product.maxPrice.replace("USD", "$").trim().replace("US", "").trim()}`}
           <Button
             color="text.secondary"
             style={{
